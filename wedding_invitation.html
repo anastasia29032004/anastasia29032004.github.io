@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу Дениса и Анастасии</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Минималистичные благородные шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fcfbfa; /* Нежный молочный/офвайт */
+            --text-color: #2c2c2c;
+            --accent-color: #a89485; /* Элегантный тауп / припыленный беж */
+            --light-accent: #f3ece6;
+            --border-color: #e0d8d0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Индикатор режима редактирования */
+        .edit-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 44, 44, 0.9);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            z-index: 2000;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            pointer-events: none;
+            transition: opacity 0.5s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Стилизация редактируемых полей */
+        [contenteditable="true"] {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        [contenteditable="true"]:hover {
+            background: rgba(168, 148, 133, 0.08);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        [contenteditable="true"]:focus {
+            outline: none;
+            background: rgba(168, 148, 133, 0.12);
+            border-radius: 4px;
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        /* Фиксированная кнопка музыки в стиле минимализма */
+        .audio-control {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            transition: all 0.3s ease;
+        }
+        .audio-control:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+        .audio-control svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-color);
+            transition: fill 0.3s;
+        }
+        .audio-control.playing svg {
+            fill: var(--accent-color);
+        }
+
+        /* Общие контейнеры секций */
+        section {
+            padding: 100px 24px;
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Главный экран - Минимализм */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .hero-names {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin: 25px 0;
+            font-style: italic;
+        }
+        
+        .hero-names span {
+            display: block;
+            font-size: 2rem;
+            font-style: normal;
+            color: var(--accent-color);
+            margin: 10px 0;
+        }
+
+        .hero p {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #777;
+        }
+
+        .hero-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            margin-top: 25px;
+            letter-spacing: 4px;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 8px;
+            width: fit-content;
+        }
+
+        /* Декоративное бьющееся сердце на фоне */
+        .pulse-heart-container {
+            margin: 30px 0;
+            position: relative;
+        }
+        .pulse-heart {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            animation: heartBeat 1.4s infinite ease-in-out;
+            display: inline-block;
+        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.18); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.18); }
+            70% { transform: scale(1); }
+        }
+
+        /* Текст приглашения */
+        .invitation h2 {
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+            color: var(--text-color);
+        }
+        .invitation p {
+            font-size: 1.05rem;
+            color: #555;
+            max-width: 580px;
+            margin: 0 auto 25px;
+            font-weight: 300;
+        }
+
+        /* Таймер обратного отсчета */
+        .timer-title {
+            font-size: 1.4rem;
+            margin-top: 60px;
+            margin-bottom: 25px;
+            text-transform: lowercase;
+            font-style: italic;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .countdown-item .num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--text-color);
+            line-height: 1;
+        }
+        .countdown-item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Таймлайн / Программа дня */
+        .timeline-section {
+            background-color: #f7f6f4;
+            max-width: 100%;
+            width: 100%;
+        }
+        .timeline-wrapper {
+            max-width: 600px;
+            margin: 50px auto 0;
+            position: relative;
+            padding-left: 35px;
+            text-align: left;
+        }
+        /* Вертикальная линия */
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 5px;
+            bottom: 5px;
+            width: 1px;
+            background-color: var(--border-color);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 45px;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        /* Точка на линии */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .timeline-item:hover::after {
+            transform: scale(1.4);
+        }
+        .time {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+        .event-title {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+        .event-desc {
+            font-size: 0.85rem;
+            color: #777;
+            font-weight: 300;
+        }
+
+        /* Секция Дресс-кода */
+        .dress-code h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+        .dress-code p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+        .palette {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .color-circle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
+        }
+        .color-circle:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Секция Деталей / RSVP */
+        .rsvp-section {
+            background-color: #fdfdfd;
+            border-top: 1px solid var(--light-accent);
+        }
+        .rsvp-form {
+            margin-top: 40px;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .form-group input[type="text"], .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            border-radius: 0;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 300;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--text-color);
+            color: #fff;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Футер */
+        footer {
+            padding: 60px 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #888;
+            font-weight: 300;
+            border-top: 1px solid var(--light-accent);
+        }
+
+        /* Адаптивность под мобильные устройства */
+        @media (max-width: 600px) {
+            section {
+                padding: 70px 20px;
+            }
+            .hero-names {
+                font-size: 2.6rem;
+            }
+            .countdown {
+                gap: 15px;
+            }
+            .countdown-item .num {
+                font-size: 2rem;
+            }
+            .countdown-item .label {
+                font-size: 0.6rem;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Уведомление о редактировании -->
+    <div class="edit-banner">
+        <span>✍️ Режим редактирования активен. Кликните на любой текст, чтобы изменить его.</span>
+    </div>
+
+    <!-- Аудио поток -->
+    <audio id="wedding-audio" loop preload="auto">
+        <source src="https://eu.hitmoz.com/song/80840596" type="audio/mpeg">
+    </audio>
+
+    <!-- Контроллер музыки -->
+    <div class="audio-control" id="audio-toggle" title="Включить / Выключить музыку">
+        <svg id="audio-icon" viewBox="0 0 24 24">
+            <!-- Иконка выключенного звука по умолчанию -->
+            <path id="icon-shape" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+    </div>
+
+    <!-- Главная секция (Hero) -->
+    <section class="hero">
+        <p contenteditable="true">Приглашение на свадьбу</p>
+        <div class="hero-names">
+            <span contenteditable="true">Денис</span>
+            <div class="pulse-heart-container">
+                <div class="pulse-heart">♥</div>
+            </div>
+            <span contenteditable="true">Анастасия</span>
+        </div>
+        <div class="hero-date" contenteditable="true">08.08.2026</div>
+    </section>
+
+    <!-- Секция приглашения и Таймер -->
+    <section class="invitation">
+        <h2 contenteditable="true">Дорогие гости!</h2>
+        <p contenteditable="true">Один день в календарном году станет для нас самым особенным, и мы хотим провести его в окружении самых близких людей.</p>
+        <p contenteditable="true">С большим удовольствием приглашаем вас разделить радость создания нашей семьи на торжестве, посвященном нашему бракосочетанию!</p>
+        
+        <h3 class="timer-title" contenteditable="true">до заветного дня осталось:</h3>
+        
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="num" id="days">00</span>
+                <span class="label" contenteditable="true">дней</span>
+            </div>
+            <div class="countdown-item">
+                <span class="num" id="hours">00</span>
+                <span class="label" contenteditable="true">часов</span>
+            </div>
+            <div class="countdown-item">
+                <span class="num" id="mins">00</span>
+                <span class="label" contenteditable="true">минут</span>
+            </div>
+            <div class="countdown-item">
+                <span class="num" id="secs">00</span>
+                <span class="label" contenteditable="true">секунд</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Расписания (Таймлайн) -->
+    <section class="timeline-section">
+        <h2 contenteditable="true" style="font-size: 2.2rem; text-align: center;">План дня</h2>
+        <p contenteditable="true" style="text-align: center; color: #777; font-size: 0.9rem; margin-top: 5px;">Тайминг праздничных событий</p>
+        
+        <div class="timeline-wrapper">
+            <div class="timeline-item">
+                <div class="time" contenteditable="true">16:00</div>
+                <div class="event-title" contenteditable="true">Сбор гостей & Welcome</div>
+                <div class="event-desc" contenteditable="true">Приветственные напитки, легкие закуски и знакомство гостей.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time" contenteditable="true">16:30</div>
+                <div class="event-title" contenteditable="true">Выездная регистрация</div>
+                <div class="event-desc" contenteditable="true">Самый трогательный момент. Приготовьте улыбки и платочки.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time" contenteditable="true">17:30</div>
+                <div class="event-title" contenteditable="true">Свадебный ужин</div>
+                <div class="event-desc" contenteditable="true">Время приятных поздравлений, гастрономических удовольствий и танцев.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time" contenteditable="true">22:00</div>
+                <div class="event-title" contenteditable="true">Свадебный торт & Финал</div>
+                <div class="event-desc" contenteditable="true">Красивое завершение официальной части вечера.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Дресс-кода -->
+    <section class="dress-code">
+        <h2 contenteditable="true">Дресс-код</h2>
+        <p contenteditable="true">Мы будем очень признательны, если при выборе праздничного образа вы поддержите цветовую гамму нашей свадьбы:</p>
+        
+        <div class="palette">
+            <!-- Цвета палитры (можно кликать в браузере для красоты, либо менять HEX-код в атрибуте style) -->
+            <div class="color-circle" style="background-color: #d9cdbf;" title="Песочный"></div>
+            <div class="color-circle" style="background-color: #c4b3a5;" title="Капучино"></div>
+            <div class="color-circle" style="background-color: #a89485;" title="Тауп"></div>
+            <div class="color-circle" style="background-color: #8f9e8b;" title="Шалфей"></div>
+            <div class="color-circle" style="background-color: #6e7d6b;" title="Оливковый"></div>
+        </div>
+    </section>
+
+    <!-- Секция RSVP (Подтверждение) -->
+    <section class="rsvp-section">
+        <h2 contenteditable="true">Подтверждение присутствия</h2>
+        <p contenteditable="true">Пожалуйста, ответьте на несколько вопросов до 01.07.2026, чтобы мы могли сделать праздник максимально комфортным.</p>
+        
+        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Ваш ответ сохранен! (В реальной версии здесь настраивается отправка в Telegram/Почту)');">
+            <div class="form-group">
+                <label contenteditable="true">Ваше имя и фамилия</label>
+                <input type="text" placeholder="Иван и Мария" required>
+            </div>
+            
+            <div class="form-group">
+                <label contenteditable="true">Планируете ли вы присутствовать?</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="yes" checked> <span contenteditable="true">Да, с удовольствием приду(-ем)</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="no"> <span contenteditable="true">К сожалению, не смогу(-ем)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label contenteditable="true">Пожелания по напиткам</label>
+                <input type="text" placeholder="Вино сухое / Виски / Безалкогольные">
+            </div>
+
+            <button type="submit" class="submit-btn" contenteditable="true">Отправить ответ</button>
+        </form>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <p contenteditable="true">Ждем вас на нашем празднике! Денис & Анастасия</p>
+    </footer>
+
+    <script>
+        // === ЛОГИКА ТАЙМЕРА ОБРАТНОГО ОТСЧЕТА ===
+        // Дата свадьбы: 08.08.2026 16:00:00
+        const weddingDate = new Date('August 8, 2026 16:00:00').getTime();
+
+        function runCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.querySelector('.countdown').innerHTML = "<p style='font-family:\'Cormorant Garamond\', serif; font-size: 1.8rem; color: var(--accent-color); font-style: italic;'>Этот счастливый день настал!</p>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(runCountdown, 1000);
+        runCountdown();
+
+        // === ЛОГИКА АВТОМУЗЫКИ С УЧЕТОМ ПОЛИТИКИ БРАУЗЕРОВ ===
+        const audio = document.getElementById('wedding-audio');
+        const audioToggle = document.getElementById('audio-toggle');
+        const iconShape = document.getElementById('icon-shape');
+
+        // Иконки состояний
+        const playIconPath = "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"; // Музыкальная нота
+        const muteIconPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z";
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioToggle.classList.add('playing');
+                    iconShape.setAttribute('d', playIconPath);
+                }).catch(err => console.log("Ошибка аудио:", err));
+            } else {
+                audio.pause();
+                audioToggle.classList.remove('playing');
+                iconShape.setAttribute('d', muteIconPath);
+            }
+        }
+
+        audioToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Чтобы не срабатывал глобальный клик по body
+            togglePlay();
+        });
+
+        // Глобальный триггер на любое действие пользователя (клик/тач),
+        // так как современные браузеры аппаратно блокируют автоматический звук без явного действия пользователя.
+        document.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioToggle.classList.add('playing');
+                    iconShape.setAttribute('d', playIconPath);
+                }).catch(() => {});
+            }
+        }, { once: true }); // Сработает ровно 1 раз при первом касании страницы гостем
+
+        document.addEventListener('touchstart', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    audioToggle.classList.add('playing');
+                    iconShape.setAttribute('d', playIconPath);
+                }).catch(() => {});
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
